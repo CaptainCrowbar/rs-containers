@@ -7,7 +7,15 @@
 
 using namespace RS::UnitTest;
 
-void test_containers_version();
+void test_rs_containers_ring_buffer_basic_queue_eject();
+void test_rs_containers_ring_buffer_basic_queue_reject();
+void test_rs_containers_ring_buffer_basic_stack_eject();
+void test_rs_containers_ring_buffer_basic_stack_reject();
+void test_rs_containers_ring_buffer_static_queue_eject();
+void test_rs_containers_ring_buffer_static_queue_reject();
+void test_rs_containers_ring_buffer_static_stack_eject();
+void test_rs_containers_ring_buffer_static_stack_reject();
+void test_rs_containers_version();
 
 int main(int argc, char** argv) {
 
@@ -16,7 +24,15 @@ int main(int argc, char** argv) {
     std::println("{}Running unit tests{}", xhead, xreset);
     std::println("{}{}{}", xrule, rule, xreset);
 
-    call_me_maybe(test_containers_version, "test_containers_version");
+    call_me_maybe(test_rs_containers_ring_buffer_basic_queue_eject, "test_rs_containers_ring_buffer_basic_queue_eject");
+    call_me_maybe(test_rs_containers_ring_buffer_basic_queue_reject, "test_rs_containers_ring_buffer_basic_queue_reject");
+    call_me_maybe(test_rs_containers_ring_buffer_basic_stack_eject, "test_rs_containers_ring_buffer_basic_stack_eject");
+    call_me_maybe(test_rs_containers_ring_buffer_basic_stack_reject, "test_rs_containers_ring_buffer_basic_stack_reject");
+    call_me_maybe(test_rs_containers_ring_buffer_static_queue_eject, "test_rs_containers_ring_buffer_static_queue_eject");
+    call_me_maybe(test_rs_containers_ring_buffer_static_queue_reject, "test_rs_containers_ring_buffer_static_queue_reject");
+    call_me_maybe(test_rs_containers_ring_buffer_static_stack_eject, "test_rs_containers_ring_buffer_static_stack_eject");
+    call_me_maybe(test_rs_containers_ring_buffer_static_stack_reject, "test_rs_containers_ring_buffer_static_stack_reject");
+    call_me_maybe(test_rs_containers_version, "test_rs_containers_version");
 
     std::println("{}{}{}", xrule, rule, xreset);
 

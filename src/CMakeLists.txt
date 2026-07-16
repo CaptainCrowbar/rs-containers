@@ -40,6 +40,8 @@ include_directories(.)
 set(unittest test-containers)
 
 add_executable(${unittest}
+    test/ring-buffer-basic-test.cpp
+    test/ring-buffer-static-test.cpp
     test/version-test.cpp
     test/unit-test.cpp
 )

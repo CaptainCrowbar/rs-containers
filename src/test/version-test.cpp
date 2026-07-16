@@ -3,7 +3,7 @@
 
 using namespace RS::Containers;
 
-void test_containers_version() {
+void test_rs_containers_version() {
 
     TEST_IN_RANGE(version()[0], 0, 100);
     TEST_IN_RANGE(version()[1], 0, 1'000);
