@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.30)
 # and propagate the new version to version.hpp.
 
 project(Containers
-    VERSION 0.1.1
+    VERSION 0.1.2
     LANGUAGES CXX
 )
 

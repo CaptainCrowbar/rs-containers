@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rs-core/global.hpp"
+#include "rs-core/arithmetic.hpp"
 #include "rs-core/hash.hpp"
 #include "rs-core/iterator.hpp"
 #include "rs-core/linear-algebra.hpp"
@@ -269,7 +269,7 @@ namespace RS::Containers {
 
                     cell_index_vector cell_index;
 
-                    for (auto i = 0uz; i < static_cast<std::size_t>(N); ++i)
+                    for (auto i = 0uz; i < to_unsigned(N); ++i)
                         cell_index[i] = origin_cell[i] + cell_ofs[i];
 
                     auto cell_obj_it = cell_obj_map_.find(cell_index);
@@ -317,7 +317,7 @@ namespace RS::Containers {
         typename SpatialIndex<T, S, N>::cell_index_vector
         SpatialIndex<T, S, N>::pos_to_cell_index(vector_type pos) const {
             cell_index_vector cell_index;
-            for (auto i = 0uz; i < static_cast<std::size_t>(N); ++i)
+            for (auto i = 0uz; i < to_unsigned(N); ++i)
                 cell_index[i] = index_type(std::floor(pos[i] / scale_));
             return cell_index;
         }

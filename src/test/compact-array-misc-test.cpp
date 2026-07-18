@@ -1,4 +1,5 @@
 #include "rs-containers/compact-array.hpp"
+#include "rs-core/arithmetic.hpp"
 #include "rs-core/unit-test.hpp"
 #include <cstddef>
 #include <format>
@@ -85,7 +86,7 @@ void test_rs_containers_compact_array_keys() {
             TRY(a.push_back(j));
         }
         TEST_EQUAL(a.size(), std::size_t(i + 1));
-        s.assign(static_cast<std::size_t>(i), static_cast<char>('@' + i));
+        s.assign(to_unsigned(i), static_cast<char>('@' + i));
         TRY(omap[a] = s);
         TRY(umap[a] = s);
     }

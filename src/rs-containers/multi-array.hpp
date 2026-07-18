@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rs-core/global.hpp"
+#include "rs-core/arithmetic.hpp"
 #include "rs-core/iterator.hpp"
 #include "rs-core/linear-algebra.hpp"
 #include <algorithm>
@@ -37,7 +37,7 @@ namespace RS::Containers {
             bool operator==(const basic_iterator& i) const noexcept { return index_ == i.index_; }
 
             basic_iterator& move(int axis, int distance = 1) noexcept {
-                index_ += owner_->factors_[static_cast<std::size_t>(axis)] * distance;
+                index_ += owner_->factors_[to_unsigned(axis)] * distance;
                 return *this;
             }
 
@@ -110,7 +110,7 @@ namespace RS::Containers {
             requires (sizeof...(Args) == N);
         bool empty() const noexcept { return size() == 0; }
         position shape() const noexcept { return shape_; }
-        std::size_t size() const noexcept { return static_cast<std::size_t>(factors_[N]); }
+        std::size_t size() const noexcept { return to_unsigned(factors_[N]); }
 
         void clear() noexcept { shape_ = position(0); store_.clear(); }
         void fill(const T& t) { std::fill(begin(), end(), t); }
@@ -183,31 +183,31 @@ namespace RS::Containers {
 
         template <std::regular T, int N>
         T& MultiArray<T, N>::ref(const position& p) noexcept {
-            return store_[static_cast<std::size_t>(position_to_index(p))];
+            return store_[to_unsigned(position_to_index(p))];
         }
 
         template <std::regular T, int N>
         template <std::convertible_to<int>... Args>
         T& MultiArray<T, N>::ref(Args... args) noexcept
         requires (sizeof...(Args) == N) {
-            return store_[static_cast<std::size_t>(position_to_index({args...}))];
+            return store_[to_unsigned(position_to_index({args...}))];
         }
 
         template <std::regular T, int N>
         const T& MultiArray<T, N>::get(const position& p) const noexcept {
-            return store_[static_cast<std::size_t>(position_to_index(p))];
+            return store_[to_unsigned(position_to_index(p))];
         }
 
         template <std::regular T, int N>
         template <std::convertible_to<int>... Args>
         const T& MultiArray<T, N>::get(Args... args) const noexcept
         requires (sizeof...(Args) == N) {
-            return store_[static_cast<std::size_t>(position_to_index({args...}))];
+            return store_[to_unsigned(position_to_index({args...}))];
         }
 
         template <std::regular T, int N>
         bool MultiArray<T, N>::contains(const position& p) const noexcept {
-            for (auto i = 0uz; i < static_cast<std::size_t>(N); ++i) {
+            for (auto i = 0uz; i < to_unsigned(N); ++i) {
                 if (p[i] < 0 || p[i] >= shape_[i]) {
                     return false;
                 }
@@ -241,7 +241,7 @@ namespace RS::Containers {
             auto old_size = factors_[N];
             shape_ = shape;
             factors_[0] = 1;
-            for (auto i = 0uz; i < static_cast<std::size_t>(N); ++i) {
+            for (auto i = 0uz; i < to_unsigned(N); ++i) {
                 factors_[i + 1] = factors_[i] * shape_[i];
             }
             auto new_size = factors_[N];
@@ -254,7 +254,7 @@ namespace RS::Containers {
         MultiArray<T, N>::index_to_position(int i) const noexcept {
             position p{0};
             if (! empty()) {
-                for (auto j = static_cast<std::size_t>(N); j > 0; --j) {
+                for (auto j = to_unsigned(N); j > 0; --j) {
                     p[j - 1] = i / factors_[j - 1];
                     i %= factors_[j - 1];
                 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rs-core/global.hpp"
+#include "rs-core/arithmetic.hpp"
 #include "rs-core/iterator.hpp"
 #include <algorithm>
 #include <array>
@@ -80,9 +80,9 @@ namespace RS::Containers {
         iterator begin() noexcept { return iterator(data()); }
         const_iterator begin() const noexcept { return cbegin(); }
         const_iterator cbegin() const noexcept { return const_iterator(cdata()); }
-        iterator end() noexcept { return begin() + static_cast<std::ptrdiff_t>(num_); }
+        iterator end() noexcept { return begin() + to_signed(num_); }
         const_iterator end() const noexcept { return cend(); }
-        const_iterator cend() const noexcept { return cbegin() + static_cast<std::ptrdiff_t>(num_); }
+        const_iterator cend() const noexcept { return cbegin() + to_signed(num_); }
         T* data() noexcept { return reinterpret_cast<T*>(mem_.data()); }
         const T* data() const noexcept { return cdata(); }
         const T* cdata() const noexcept { return reinterpret_cast<const T*>(mem_.data()); }
@@ -127,7 +127,7 @@ namespace RS::Containers {
         BoundedArray<T, N>::BoundedArray(std::size_t n, const T& t):
         num_{n} {
             check_length(n);
-            std::uninitialized_fill(begin(), begin() + static_cast<std::ptrdiff_t>(n), t);
+            std::uninitialized_fill(begin(), begin() + to_signed(n), t);
         }
 
         template <typename T, std::size_t N>
@@ -139,7 +139,7 @@ namespace RS::Containers {
                     push_back(*i);
                 }
             } else {
-                auto n = static_cast<std::size_t>(std::distance(i, j));
+                auto n = to_unsigned(std::distance(i, j));
                 check_length(n);
                 num_ = n;
                 std::uninitialized_copy(i, j, begin());
@@ -191,16 +191,16 @@ namespace RS::Containers {
         template <std::input_iterator I>
         typename BoundedArray<T, N>::iterator BoundedArray<T, N>::append(I i, I j) {
             using namespace Detail;
-            auto n_old = static_cast<std::ptrdiff_t>(num_);
+            auto n_old = to_signed(num_);
             if (std::is_same<typename std::iterator_traits<I>::iterator_category, std::input_iterator_tag>::value) {
                 for (; i != j; ++i) {
                     push_back(*i);
                 }
             } else {
                 auto n_new = std::distance(i, j);
-                check_length(num_ + static_cast<std::size_t>(n_new));
+                check_length(num_ + to_unsigned(n_new));
                 std::uninitialized_copy(i, j, begin() + n_old);
-                num_ += static_cast<std::size_t>(n_new);
+                num_ += to_unsigned(n_new);
             }
             return begin() + n_old;
         }
@@ -220,18 +220,18 @@ namespace RS::Containers {
             using std::begin;
             using std::end;
             auto i = begin(r), j = end(r);
-            auto n_old = static_cast<std::ptrdiff_t>(num_);
+            auto n_old = to_signed(num_);
             if (std::is_same<typename std::iterator_traits<decltype(i)>::iterator_category, std::input_iterator_tag>::value) {
                 for (; i != j; ++i) {
                     push_back(*i);
                 }
             } else {
                 auto n_new = std::distance(i, j);
-                check_length(num_ + static_cast<std::size_t>(n_new));
+                check_length(num_ + to_unsigned(n_new));
                 std::uninitialized_move(i, j, this->begin() + n_old);
-                num_ += static_cast<std::size_t>(n_new);
+                num_ += to_unsigned(n_new);
             }
-            return this->begin() + static_cast<std::ptrdiff_t>(n_old);
+            return this->begin() + to_signed(n_old);
         }
 
         template <typename T, std::size_t N>
@@ -246,7 +246,7 @@ namespace RS::Containers {
         typename BoundedArray<T, N>::iterator BoundedArray<T, N>::emplace(const_iterator i, Args&&... args) {
             check_length(num_ + 1);
             auto pos = i - begin();
-            if (pos < static_cast<std::ptrdiff_t>(num_)) {
+            if (pos < to_signed(num_)) {
                 new (data() + num_) T(std::move(end()[-1]));
                 std::move_backward(begin() + pos, end() - 1, end());
                 begin()[pos].~T();
@@ -260,7 +260,7 @@ namespace RS::Containers {
         template <typename... Args>
         void BoundedArray<T, N>::emplace_back(Args&&... args) {
             check_length(num_ + 1);
-            new (data() + static_cast<std::ptrdiff_t>(num_)) T(std::forward<Args>(args)...);
+            new (data() + to_signed(num_)) T(std::forward<Args>(args)...);
             ++num_;
         }
 
@@ -280,14 +280,14 @@ namespace RS::Containers {
             auto y = j - cbegin();
             std::move(begin() + y, end(), begin() + x);
             std::destroy(end() - n_erase, end());
-            num_ -= static_cast<std::size_t>(n_erase);
+            num_ -= to_unsigned(n_erase);
         }
 
         template <typename T, std::size_t N>
         typename BoundedArray<T, N>::iterator BoundedArray<T, N>::insert(const_iterator i, const T& t) {
             check_length(num_ + 1);
             auto pos = i - begin();
-            if (pos < static_cast<std::ptrdiff_t>(num_)) {
+            if (pos < to_signed(num_)) {
                 new (data() + num_) T(std::move(end()[-1]));
                 std::move_backward(begin() + pos, end() - 1, end());
                 begin()[pos] = t;
@@ -302,7 +302,7 @@ namespace RS::Containers {
         typename BoundedArray<T, N>::iterator BoundedArray<T, N>::insert(const_iterator i, T&& t) {
             check_length(num_ + 1);
             auto pos = i - begin();
-            if (pos < static_cast<std::ptrdiff_t>(num_)) {
+            if (pos < to_signed(num_)) {
                 new (data() + num_) T(std::move(end()[-1]));
                 std::move_backward(begin() + pos, end() - 1, end());
                 begin()[pos] = std::move(t);
@@ -318,7 +318,7 @@ namespace RS::Containers {
         typename BoundedArray<T, N>::iterator BoundedArray<T, N>::insert(const_iterator i, I j, I k) {
             using namespace Detail;
             auto n_before = i - begin();
-            auto n_after = static_cast<std::ptrdiff_t>(num_) - n_before;
+            auto n_after = to_signed(num_) - n_before;
             if (std::is_same<typename std::iterator_traits<I>::iterator_category, std::input_iterator_tag>::value) {
                 BoundedArray temp(i, cend());
                 erase(i, end());
@@ -328,7 +328,7 @@ namespace RS::Containers {
                 append(std::move(temp));
             } else {
                 auto n_inserted = std::distance(j, k);
-                check_length(num_ + static_cast<std::size_t>(n_inserted));
+                check_length(num_ + to_unsigned(n_inserted));
                 auto insert_at = begin() + n_before;
                 if (n_inserted < n_after) {
                     std::uninitialized_move(end() - n_inserted, end(), end());
@@ -341,7 +341,7 @@ namespace RS::Containers {
                     std::copy(j, mid, insert_at);
                     std::uninitialized_copy(mid, k, end());
                 }
-                num_ += static_cast<std::size_t>(n_inserted);
+                num_ += to_unsigned(n_inserted);
             }
             return begin() + n_before;
         }
@@ -370,9 +370,9 @@ namespace RS::Containers {
         void BoundedArray<T, N>::resize(std::size_t n, const T& t) {
             check_length(n);
             if (n < num_) {
-                std::destroy(begin() + static_cast<std::ptrdiff_t>(n), end());
+                std::destroy(begin() + to_signed(n), end());
             } else if (n > num_) {
-                std::uninitialized_fill(begin() + static_cast<std::ptrdiff_t>(num_), begin() + static_cast<std::ptrdiff_t>(n), t);
+                std::uninitialized_fill(begin() + to_signed(num_), begin() + to_signed(n), t);
             }
             num_ = n;
         }
@@ -391,7 +391,7 @@ namespace RS::Containers {
         void BoundedArray<T, N>::swap(BoundedArray& ba) noexcept {
             using namespace Detail;
             auto common = std::min(num_, ba.num_);
-            auto signed_common = static_cast<std::ptrdiff_t>(common);
+            auto signed_common = to_signed(common);
             std::swap_ranges(begin(), begin() + signed_common, ba.begin());
             if (num_ > common) {
                 std::uninitialized_move(begin() + signed_common, end(), ba.begin() + signed_common);

@@ -1,4 +1,5 @@
 #include "rs-containers/ring-buffer.hpp"
+#include "rs-core/arithmetic.hpp"
 #include "rs-core/unit-test.hpp"
 #include <algorithm>
 #include <cstddef>
@@ -73,7 +74,7 @@ void test_rs_containers_ring_buffer_basic_queue_eject() {
             for (auto j = 1; j <= i; ++j) {
                 TRY(buf.push(j));
             }
-            TEST_EQUAL(buf.size(), static_cast<std::size_t>(std::min(i, 5)));
+            TEST_EQUAL(buf.size(), to_unsigned(std::min(i, 5)));
             TEST_EQUAL(CI::count(), std::min(i, 5));
             TRY(buf.clear());
             TEST(buf.empty());
@@ -151,7 +152,7 @@ void test_rs_containers_ring_buffer_basic_queue_reject() {
             for (auto j = 1; j <= i; ++j) {
                 TRY(buf.push(j));
             }
-            TEST_EQUAL(buf.size(), static_cast<std::size_t>(std::min(i, 5)));
+            TEST_EQUAL(buf.size(), to_unsigned(std::min(i, 5)));
             TEST_EQUAL(CI::count(), std::min(i, 5));
             TRY(buf.clear());
             TEST(buf.empty());
@@ -208,7 +209,7 @@ void test_rs_containers_ring_buffer_basic_stack_eject() {
             for (auto j = 1; j <= i; ++j) {
                 TRY(buf.push(j));
             }
-            TEST_EQUAL(buf.size(), static_cast<std::size_t>(std::min(i, 5)));
+            TEST_EQUAL(buf.size(), to_unsigned(std::min(i, 5)));
             TEST_EQUAL(CI::count(), std::min(i, 5));
             TRY(buf.clear());
             TEST(buf.empty());
@@ -265,7 +266,7 @@ void test_rs_containers_ring_buffer_basic_stack_reject() {
             for (auto j = 1; j <= i; ++j) {
                 TRY(buf.push(j));
             }
-            TEST_EQUAL(buf.size(), static_cast<std::size_t>(std::min(i, 5)));
+            TEST_EQUAL(buf.size(), to_unsigned(std::min(i, 5)));
             TEST_EQUAL(CI::count(), std::min(i, 5));
             TRY(buf.clear());
             TEST(buf.empty());

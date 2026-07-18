@@ -2,7 +2,6 @@
 
 #include "rs-core/arithmetic.hpp"
 #include "rs-core/enum.hpp"
-#include "rs-core/global.hpp"
 #include <array>
 #include <concepts>
 #include <cstddef>
