@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.30)
 # and propagate the new version to version.hpp.
 
 project(Containers
-    VERSION 0.1.0
+    VERSION 0.1.1
     LANGUAGES CXX
 )
 
@@ -40,8 +40,18 @@ include_directories(.)
 set(unittest test-containers)
 
 add_executable(${unittest}
+    test/bounded-array-construction-test.cpp
+    test/bounded-array-insertion-test.cpp
+    test/bounded-array-misc-test.cpp
+    test/bounded-array-tracking-test.cpp
+    test/compact-array-construction-test.cpp
+    test/compact-array-insertion-test.cpp
+    test/compact-array-misc-test.cpp
+    test/compact-array-tracking-test.cpp
+    test/multi-array-test.cpp
     test/ring-buffer-basic-test.cpp
     test/ring-buffer-static-test.cpp
+    test/spatial-index-test.cpp
     test/version-test.cpp
     test/unit-test.cpp
 )

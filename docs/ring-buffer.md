@@ -4,7 +4,7 @@ _[Containers library by Ross Smith](index.html)_
 
 ```c++
 #include "rs-containers/ring-buffer.hpp"
-namespace RS;
+namespace RS::Containers;
 ```
 
 ## Contents

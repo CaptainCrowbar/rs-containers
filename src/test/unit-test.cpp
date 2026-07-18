@@ -7,6 +7,18 @@
 
 using namespace RS::UnitTest;
 
+void test_rs_containers_bounded_array_construction();
+void test_rs_containers_bounded_array_insertion();
+void test_rs_containers_bounded_array_capacity();
+void test_rs_containers_bounded_array_keys();
+void test_rs_containers_bounded_array_tracking();
+void test_rs_containers_compact_array_construction();
+void test_rs_containers_compact_array_insertion();
+void test_rs_containers_compact_array_capacity();
+void test_rs_containers_compact_array_keys();
+void test_rs_containers_compact_array_tracking();
+void test_rs_containers_multi_array_2d();
+void test_rs_containers_multi_array_3d();
 void test_rs_containers_ring_buffer_basic_queue_eject();
 void test_rs_containers_ring_buffer_basic_queue_reject();
 void test_rs_containers_ring_buffer_basic_stack_eject();
@@ -15,6 +27,11 @@ void test_rs_containers_ring_buffer_static_queue_eject();
 void test_rs_containers_ring_buffer_static_queue_reject();
 void test_rs_containers_ring_buffer_static_stack_eject();
 void test_rs_containers_ring_buffer_static_stack_reject();
+void test_rs_containers_spatial_index_construction();
+void test_rs_containers_spatial_index_insert();
+void test_rs_containers_spatial_index_find();
+void test_rs_containers_spatial_index_erase();
+void test_rs_containers_spatial_index_search();
 void test_rs_containers_version();
 
 int main(int argc, char** argv) {
@@ -24,6 +41,18 @@ int main(int argc, char** argv) {
     std::println("{}Running unit tests{}", xhead, xreset);
     std::println("{}{}{}", xrule, rule, xreset);
 
+    call_me_maybe(test_rs_containers_bounded_array_construction, "test_rs_containers_bounded_array_construction");
+    call_me_maybe(test_rs_containers_bounded_array_insertion, "test_rs_containers_bounded_array_insertion");
+    call_me_maybe(test_rs_containers_bounded_array_capacity, "test_rs_containers_bounded_array_capacity");
+    call_me_maybe(test_rs_containers_bounded_array_keys, "test_rs_containers_bounded_array_keys");
+    call_me_maybe(test_rs_containers_bounded_array_tracking, "test_rs_containers_bounded_array_tracking");
+    call_me_maybe(test_rs_containers_compact_array_construction, "test_rs_containers_compact_array_construction");
+    call_me_maybe(test_rs_containers_compact_array_insertion, "test_rs_containers_compact_array_insertion");
+    call_me_maybe(test_rs_containers_compact_array_capacity, "test_rs_containers_compact_array_capacity");
+    call_me_maybe(test_rs_containers_compact_array_keys, "test_rs_containers_compact_array_keys");
+    call_me_maybe(test_rs_containers_compact_array_tracking, "test_rs_containers_compact_array_tracking");
+    call_me_maybe(test_rs_containers_multi_array_2d, "test_rs_containers_multi_array_2d");
+    call_me_maybe(test_rs_containers_multi_array_3d, "test_rs_containers_multi_array_3d");
     call_me_maybe(test_rs_containers_ring_buffer_basic_queue_eject, "test_rs_containers_ring_buffer_basic_queue_eject");
     call_me_maybe(test_rs_containers_ring_buffer_basic_queue_reject, "test_rs_containers_ring_buffer_basic_queue_reject");
     call_me_maybe(test_rs_containers_ring_buffer_basic_stack_eject, "test_rs_containers_ring_buffer_basic_stack_eject");
@@ -32,6 +61,11 @@ int main(int argc, char** argv) {
     call_me_maybe(test_rs_containers_ring_buffer_static_queue_reject, "test_rs_containers_ring_buffer_static_queue_reject");
     call_me_maybe(test_rs_containers_ring_buffer_static_stack_eject, "test_rs_containers_ring_buffer_static_stack_eject");
     call_me_maybe(test_rs_containers_ring_buffer_static_stack_reject, "test_rs_containers_ring_buffer_static_stack_reject");
+    call_me_maybe(test_rs_containers_spatial_index_construction, "test_rs_containers_spatial_index_construction");
+    call_me_maybe(test_rs_containers_spatial_index_insert, "test_rs_containers_spatial_index_insert");
+    call_me_maybe(test_rs_containers_spatial_index_find, "test_rs_containers_spatial_index_find");
+    call_me_maybe(test_rs_containers_spatial_index_erase, "test_rs_containers_spatial_index_erase");
+    call_me_maybe(test_rs_containers_spatial_index_search, "test_rs_containers_spatial_index_search");
     call_me_maybe(test_rs_containers_version, "test_rs_containers_version");
 
     std::println("{}{}{}", xrule, rule, xreset);
