@@ -2,7 +2,6 @@
 #include "rs-core/arithmetic.hpp"
 #include "rs-core/unit-test.hpp"
 #include <algorithm>
-#include <cstddef>
 #include <string>
 
 using namespace RS;

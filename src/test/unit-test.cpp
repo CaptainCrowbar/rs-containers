@@ -17,6 +17,8 @@ void test_rs_containers_compact_array_insertion();
 void test_rs_containers_compact_array_capacity();
 void test_rs_containers_compact_array_keys();
 void test_rs_containers_compact_array_tracking();
+void test_rs_containers_inversion_set();
+void test_rs_containers_inversion_map();
 void test_rs_containers_multi_array_2d();
 void test_rs_containers_multi_array_3d();
 void test_rs_containers_ring_buffer_basic_queue_eject();
@@ -51,6 +53,8 @@ int main(int argc, char** argv) {
     call_me_maybe(test_rs_containers_compact_array_capacity, "test_rs_containers_compact_array_capacity");
     call_me_maybe(test_rs_containers_compact_array_keys, "test_rs_containers_compact_array_keys");
     call_me_maybe(test_rs_containers_compact_array_tracking, "test_rs_containers_compact_array_tracking");
+    call_me_maybe(test_rs_containers_inversion_set, "test_rs_containers_inversion_set");
+    call_me_maybe(test_rs_containers_inversion_map, "test_rs_containers_inversion_map");
     call_me_maybe(test_rs_containers_multi_array_2d, "test_rs_containers_multi_array_2d");
     call_me_maybe(test_rs_containers_multi_array_3d, "test_rs_containers_multi_array_3d");
     call_me_maybe(test_rs_containers_ring_buffer_basic_queue_eject, "test_rs_containers_ring_buffer_basic_queue_eject");
