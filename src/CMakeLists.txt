@@ -37,6 +37,7 @@ endif()
 
 find_package(Threads REQUIRED)
 include_directories(.)
+set(library rs-containers)
 set(unittest test-containers)
 
 add_executable(${unittest}
