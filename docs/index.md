@@ -20,4 +20,5 @@ namespace RS::Containers;
 * [`rs-containers/multi-array.hpp` -- Multi-dimensional array](multi-array.html)
 * [`rs-containers/ring-buffer.hpp` -- Ring buffer](ring-buffer.html)
 * [`rs-containers/spatial-index.hpp` -- Spatial index](spatial-index.html)
+* [`rs-containers/topological.hpp` -- Topological sorting](topological.html)
 * [`rs-containers/version.hpp` -- Version information](version.html)

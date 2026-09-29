@@ -34,6 +34,8 @@ void test_rs_containers_spatial_index_insert();
 void test_rs_containers_spatial_index_find();
 void test_rs_containers_spatial_index_erase();
 void test_rs_containers_spatial_index_search();
+void test_rs_containers_topological_sorting();
+void test_rs_containers_topological_sorting_reverse();
 void test_rs_containers_version();
 
 int main(int argc, char** argv) {
@@ -70,6 +72,8 @@ int main(int argc, char** argv) {
     call_me_maybe(test_rs_containers_spatial_index_find, "test_rs_containers_spatial_index_find");
     call_me_maybe(test_rs_containers_spatial_index_erase, "test_rs_containers_spatial_index_erase");
     call_me_maybe(test_rs_containers_spatial_index_search, "test_rs_containers_spatial_index_search");
+    call_me_maybe(test_rs_containers_topological_sorting, "test_rs_containers_topological_sorting");
+    call_me_maybe(test_rs_containers_topological_sorting_reverse, "test_rs_containers_topological_sorting_reverse");
     call_me_maybe(test_rs_containers_version, "test_rs_containers_version");
 
     std::println("{}{}{}", xrule, rule, xreset);

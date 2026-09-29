@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.30)
 # and propagate the new version to version.hpp.
 
 project(Containers
-    VERSION 0.1.3
+    VERSION 0.1.4
     LANGUAGES CXX
 )
 
@@ -54,6 +54,7 @@ add_executable(${unittest}
     test/ring-buffer-basic-test.cpp
     test/ring-buffer-static-test.cpp
     test/spatial-index-test.cpp
+    test/topological-test.cpp
     test/version-test.cpp
     test/unit-test.cpp
 )
